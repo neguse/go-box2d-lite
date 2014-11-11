@@ -15,7 +15,7 @@ go get github.com/neguse/go-box2d-lite/box2dlite
 import "github.com/neguse/go-box2d-lite/box2dlite"
 `
 
-also ses [Examples](examples/main.go)
+also see [Examples](examples/main.go)
 
 ## License
 
