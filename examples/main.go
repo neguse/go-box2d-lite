@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"math"
 	"math/rand"
 	"runtime"
@@ -22,15 +23,17 @@ type App struct {
 const timeStep = 1.0 / 60
 
 func NewApp() *App {
-	window := sdl.CreateWindow(
+	window, err := sdl.CreateWindow(
 		"box2d-lite", sdl.WINDOWPOS_CENTERED, sdl.WINDOWPOS_CENTERED,
 		800, 600, sdl.WINDOW_OPENGL)
-	if window == nil {
+	if err != nil {
+		log.Println(err)
 		return nil
 	}
 
-	renderer := sdl.CreateRenderer(window, -2, sdl.RENDERER_SOFTWARE)
-	if renderer == nil {
+	renderer, err := sdl.CreateRenderer(window, -2, sdl.RENDERER_SOFTWARE)
+	if err != nil {
+		log.Println(err)
 		return nil
 	}
 
@@ -332,7 +335,7 @@ func (app *App) Demo8() {
 	for i := 0; i < 10; i++ {
 		var b b2d.Body
 		b.Set(&b2d.Vec2{0.2, 2.0}, 10.0)
-		b.Position = b2d.Vec2{-6.0 + 1.0 * float64(i), 11.125}
+		b.Position = b2d.Vec2{-6.0 + 1.0*float64(i), 11.125}
 		b.Friction = 0.1
 		app.World.AddBody(&b)
 	}
@@ -427,8 +430,8 @@ func (app *App) Demo9() {
 	const k = mass * omega * omega
 
 	// magic formulas
-	const softness = 1.0 / (d + timeStep * k)
-	const biasFactor = timeStep * k / (d + timeStep * k)
+	const softness = 1.0 / (d + timeStep*k)
+	const biasFactor = timeStep * k / (d + timeStep*k)
 
 	const y = 12.0
 
@@ -452,7 +455,6 @@ func (app *App) Demo9() {
 	}
 
 }
-
 
 func (app *App) ProcessEvent(e interface{}) {
 	// fmt.Println(reflect.TypeOf(e), e)
