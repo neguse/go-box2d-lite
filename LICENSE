@@ -1,3 +1,22 @@
+---
+
+go-box2d-lite by neguse
+https://github.com/neguse/go-box2d-lite
+
+Copyright (c) 2014-2015 neguse http://www.super-rolling-bar.com
+
+Permission to use, copy, modify, distribute and sell this software
+and its documentation for any purpose is hereby granted without fee,
+provided that the above copyright notice appear in all copies.
+neguse makes no representations about the suitability 
+of this software for any purpose.  
+It is provided "as is" without express or implied warranty.
+
+---
+
+Original version : Box2D_Lite by Erin Catto
+https://code.google.com/p/box2d/downloads/detail?name=Box2D_Lite.zip&can=2&q=
+
 Copyright (c) 2006-2009 Erin Catto http://www.gphysics.com
 
 Permission to use, copy, modify, distribute and sell this software
@@ -6,3 +25,5 @@ provided that the above copyright notice appear in all copies.
 Erin Catto makes no representations about the suitability 
 of this software for any purpose.  
 It is provided "as is" without express or implied warranty.
+
+---
