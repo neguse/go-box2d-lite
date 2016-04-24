@@ -21,3 +21,6 @@ also see [Examples](examples/main.go)
 
 see [LICENSE](LICENSE)
 
+## Notice
+
+If you want 2d physics library, Check https://github.com/vova616/chipmunk.
