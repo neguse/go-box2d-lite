@@ -204,7 +204,6 @@ func Collide(bodyA, bodyB *Body) []*Contact {
 
 	if faceB.Y > relativeTol*separation+absoluteTol*hB.Y {
 		axis = FACE_B_Y
-		separation = faceB.Y
 		if dB.Y > 0.0 {
 			normal = RotB.Col2
 		} else {
@@ -232,7 +231,6 @@ func Collide(bodyA, bodyB *Body) []*Contact {
 			posEdge = EDGE1
 			ComputeIncidentEdge(incidentEdge[:], hB, posB, RotB, frontNormal)
 		}
-		break
 
 	case FACE_A_Y:
 		{
@@ -246,7 +244,6 @@ func Collide(bodyA, bodyB *Body) []*Contact {
 			posEdge = EDGE4
 			ComputeIncidentEdge(incidentEdge[:], hB, posB, RotB, frontNormal)
 		}
-		break
 
 	case FACE_B_X:
 		{
@@ -260,7 +257,6 @@ func Collide(bodyA, bodyB *Body) []*Contact {
 			posEdge = EDGE1
 			ComputeIncidentEdge(incidentEdge[:], hA, posA, RotA, frontNormal)
 		}
-		break
 
 	case FACE_B_Y:
 		{
@@ -274,17 +270,17 @@ func Collide(bodyA, bodyB *Body) []*Contact {
 			posEdge = EDGE4
 			ComputeIncidentEdge(incidentEdge[:], hA, posA, RotA, frontNormal)
 		}
-		break
 	}
 
 	// clip other face with 5 box planes (1 face plane, 4 edge planes)
 
-	var clipPoints1 [2]ClipVertex
-	var clipPoints2 [2]ClipVertex
-	var np int
+	var (
+		clipPoints1 [2]ClipVertex
+		clipPoints2 [2]ClipVertex
+	)
 
 	// Clip to box side 1
-	np = ClipSegmentToLine(clipPoints1[:], incidentEdge[:], sideNormal.Negative(), negSide, negEdge)
+	np := ClipSegmentToLine(clipPoints1[:], incidentEdge[:], sideNormal.Negative(), negSide, negEdge)
 
 	if np < 2 {
 		return nil

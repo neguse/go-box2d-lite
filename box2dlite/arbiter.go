@@ -19,11 +19,11 @@ func (fp *FeaturePair) Value() uint32 {
 }
 
 func (fp *FeaturePair) Flip() {
-	*fp = FeaturePair {
-		InEdge1 : fp.InEdge2,
-		OutEdge1 : fp.OutEdge2,
-		InEdge2 : fp.InEdge1,
-		OutEdge2 : fp.OutEdge1,
+	*fp = FeaturePair{
+		InEdge1:  fp.InEdge2,
+		OutEdge1: fp.OutEdge2,
+		InEdge2:  fp.InEdge1,
+		OutEdge2: fp.OutEdge1,
 	}
 }
 
@@ -79,7 +79,7 @@ func (k ArbiterKeys) Len() int {
 }
 
 const (
-	MAX_POINTS = 2
+	MaxPoints = 2
 )
 
 type Arbiter struct {
@@ -135,13 +135,13 @@ func (a *Arbiter) Update(newContacts []*Contact) {
 	a.Contacts = mergedContacts
 }
 
-func (a *Arbiter) PreStep(inv_dt float64) {
-	var k_allowedPenetration float64 = 0.01
-	var k_biasFactor float64
+func (a *Arbiter) PreStep(invDt float64) {
+	var (
+		k_allowedPenetration = 0.01
+		k_biasFactor         = 0.0
+	)
 	if positionCorrection {
 		k_biasFactor = 0.2
-	} else {
-		k_biasFactor = 0.0
 	}
 
 	for _, c := range a.Contacts {
@@ -151,18 +151,17 @@ func (a *Arbiter) PreStep(inv_dt float64) {
 		// Precompute normal mass, tangent mass, and bias.
 		rn1 := Dot(r1, c.Normal)
 		rn2 := Dot(r2, c.Normal)
-		kNormal := a.Body1.invMass + a.Body2.invMass
-		kNormal += a.Body1.invI * (Dot(r1, r1) - rn1 * rn1) + a.Body2.invI * (Dot(r2, r2) - rn2 * rn2)
+		kNormal := a.Body1.invMass + a.Body2.invMass + a.Body1.invI*(Dot(r1, r1)-rn1*rn1) + a.Body2.invI*(Dot(r2, r2)-rn2*rn2)
 		c.MassNormal = 1.0 / kNormal
 
 		tangent := CrossVS(c.Normal, 1.0)
 		rt1 := Dot(r1, tangent)
 		rt2 := Dot(r2, tangent)
 		kTangent := a.Body1.invMass + a.Body2.invMass
-		kTangent += a.Body1.invI * (Dot(r1, r1) - rt1 * rt1) + a.Body2.invI * (Dot(r2, r2) - rt2 * rt2)
-		c.MassTangent = 1.0 /  kTangent;
+		kTangent += a.Body1.invI*(Dot(r1, r1)-rt1*rt1) + a.Body2.invI*(Dot(r2, r2)-rt2*rt2)
+		c.MassTangent = 1.0 / kTangent
 
-		c.Bias = -k_biasFactor * inv_dt * math.Min(0.0, c.Separation + k_allowedPenetration)
+		c.Bias = -k_biasFactor * invDt * math.Min(0.0, c.Separation+k_allowedPenetration)
 
 		if accumulateImpulses {
 			// Apply normal + friction impulse
@@ -200,7 +199,7 @@ func (a *Arbiter) ApplyImpulse() {
 
 		if accumulateImpulses {
 			Pn0 := c.Pn
-			c.Pn = math.Max(Pn0 + dPn, 0.0)
+			c.Pn = math.Max(Pn0+dPn, 0.0)
 			dPn = c.Pn - Pn0
 		} else {
 			dPn = math.Max(dPn, 0.0)
@@ -231,7 +230,7 @@ func (a *Arbiter) ApplyImpulse() {
 
 			// Clamp friction
 			oldTangentImpulse := c.Pt
-			c.Pt = Clamp(oldTangentImpulse + dPt, -maxPt, maxPt)
+			c.Pt = Clamp(oldTangentImpulse+dPt, -maxPt, maxPt)
 			dPt = c.Pt - oldTangentImpulse
 		}
 
@@ -245,4 +244,3 @@ func (a *Arbiter) ApplyImpulse() {
 		b2.AngularVelocity += b2.invI * CrossVV(c.R2, Pt)
 	}
 }
-

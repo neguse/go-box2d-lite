@@ -51,8 +51,7 @@ func (w *World) BroadPhase() {
 			contacts := Collide(key.Body1, key.Body2)
 
 			if len(contacts) > 0 {
-				it, ok := w.Arbiters[key]
-				if !ok {
+				if it, ok := w.Arbiters[key]; !ok {
 					var a Arbiter
 					a.Set(bi, bj, contacts)
 					w.Arbiters[key] = &a
@@ -70,8 +69,6 @@ func (w *World) Step(dt float64) {
 	var inv_dt float64
 	if dt > 0.0 {
 		inv_dt = 1.0 / dt
-	} else {
-		inv_dt = 0.0
 	}
 
 	// Determine overlapping bodies and update contact points.
@@ -116,4 +113,3 @@ func (w *World) Step(dt float64) {
 		b.Torque = 0.0
 	}
 }
-

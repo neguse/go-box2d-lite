@@ -15,7 +15,6 @@ type App struct {
 	Renderer *sdl.Renderer
 
 	World *b2d.World
-	i     int
 
 	quit bool
 }
