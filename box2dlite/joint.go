@@ -86,8 +86,7 @@ func (j *Joint) PreStep(inv_dt float64) {
 
 func (j *Joint) ApplyImpulse() {
 	// Vec2 dv = body2->velocity + Cross(body2->angularVelocity, r2) - body1->velocity - Cross(body1->angularVelocity, r1);
-	var dv Vec2
-	dv = j.Body2.Velocity
+	dv := j.Body2.Velocity
 	dv = dv.Add(CrossSV(j.Body2.AngularVelocity, j.R2))
 	dv = dv.Sub(j.Body1.Velocity)
 	dv = dv.Sub(CrossSV(j.Body1.AngularVelocity, j.R1))
@@ -105,4 +104,3 @@ func (j *Joint) ApplyImpulse() {
 
 	j.P = j.P.Add(impulse)
 }
-

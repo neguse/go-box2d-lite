@@ -1,0 +1,5 @@
+examples/examples
+*.swp
+*.bak
+*~
+*.tmp

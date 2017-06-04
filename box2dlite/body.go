@@ -8,19 +8,19 @@ type Body struct {
 	Position Vec2
 	Rotation float64
 
-	Velocity Vec2
+	Velocity        Vec2
 	AngularVelocity float64
 
-	Force Vec2
+	Force  Vec2
 	Torque float64
 
 	Width Vec2
 
 	Friction float64
-	Mass float64
-	invMass float64
-	I float64
-	invI float64
+	Mass     float64
+	invMass  float64
+	I        float64
+	invI     float64
 }
 
 func (b *Body) Set(w *Vec2, m float64) {
@@ -37,7 +37,7 @@ func (b *Body) Set(w *Vec2, m float64) {
 
 	if m < math.MaxFloat64 {
 		b.invMass = 1.0 / m
-		b.I = m * (w.X * w.X + w.Y * w.Y) / 12.0
+		b.I = m * (w.X*w.X + w.Y*w.Y) / 12.0
 		b.invI = 1.0 / b.I
 	} else {
 		b.invMass = 0.0
@@ -45,4 +45,3 @@ func (b *Body) Set(w *Vec2, m float64) {
 		b.invI = 0.0
 	}
 }
-
