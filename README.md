@@ -23,4 +23,4 @@ see [LICENSE](LICENSE)
 
 ## Notice
 
-If you want 2d physics library, Check https://github.com/vova616/chipmunk.
+If you want 2D physics library for golang, Check https://github.com/ByteArena/box2d and https://github.com/vova616/chipmunk.
